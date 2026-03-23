@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './App.css'
 
+const B = import.meta.env.BASE_URL.replace(/\/$/, '')
+
 const CLASSES = [
   { key: 'barbarian', name: 'Barbarian', desc: 'A fierce warrior fueled by primal rage.' },
   { key: 'bard', name: 'Bard', desc: 'A magical minstrel whose music weaves power.' },
@@ -73,7 +75,7 @@ function Navbar() {
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__inner">
         <a href="#" className="navbar__logo">
-          <img src="/assets/images/logo/logo.png" alt="Faetold" className="navbar__logo-img" />
+          <img src={`${B}/assets/images/logo/logo.png`} alt="Faetold" className="navbar__logo-img" />
         </a>
         <button className="navbar__hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
           <span /><span /><span />
@@ -103,7 +105,7 @@ function Hero() {
       <div className="hero__content fade-up">
         <div className="hero__split">
           <div className="hero__left">
-            <img src="/assets/images/logo/logo.png" alt="Faetold" className="hero__title-img" />
+            <img src={`${B}/assets/images/logo/logo.png`} alt="Faetold" className="hero__title-img" />
             <p className="hero__subtitle">Coming Fall 2026</p>
             <p className="hero__tagline">
               An AI-powered D&D adventure in your pocket. Create your character, explore vast worlds,
@@ -115,7 +117,7 @@ function Hero() {
           </div>
           <div className="hero__phone">
             <div className="hero__phone-frame">
-              <img src="/assets/images/containers/iphone.png" alt="Faetold on iPhone" className="hero__phone-img" />
+              <img src={`${B}/assets/images/containers/iphone.png`} alt="Faetold on iPhone" className="hero__phone-img" />
               <div className="hero__phone-screen">
                 {SCREENSHOTS.map((src, i) => (
                   <img key={src} src={src} alt="" className={`hero__phone-ss ${i === heroSSIdx ? 'hero__phone-ss--active' : ''}`} />
@@ -156,14 +158,14 @@ function Features() {
 }
 
 const SCREENSHOTS = [
-  '/assets/images/screenshots/IMG_7770.PNG',
-  '/assets/images/screenshots/IMG_7799.PNG',
-  '/assets/images/screenshots/IMG_7801.PNG',
-  '/assets/images/screenshots/IMG_7803.PNG',
-  '/assets/images/screenshots/IMG_7804.PNG',
-  '/assets/images/screenshots/IMG_7805.PNG',
-  '/assets/images/screenshots/IMG_7824.PNG',
-  '/assets/images/screenshots/IMG_7AB1E921B88C-1.PNG',
+  `${B}/assets/images/screenshots/IMG_7770.PNG`,
+  `${B}/assets/images/screenshots/IMG_7799.PNG`,
+  `${B}/assets/images/screenshots/IMG_7801.PNG`,
+  `${B}/assets/images/screenshots/IMG_7803.PNG`,
+  `${B}/assets/images/screenshots/IMG_7804.PNG`,
+  `${B}/assets/images/screenshots/IMG_7805.PNG`,
+  `${B}/assets/images/screenshots/IMG_7824.PNG`,
+  `${B}/assets/images/screenshots/IMG_7AB1E921B88C-1.PNG`,
 ]
 
 function PhoneShowcase() {
@@ -182,7 +184,7 @@ function PhoneShowcase() {
       <div className="section__inner phone-showcase__inner" ref={ref}>
         <div className={`phone-showcase__device ${vis ? 'phone-showcase__device--visible' : ''}`}>
           <div className="phone-showcase__frame">
-            <img src="/assets/images/containers/iphone.png" alt="Faetold on iPhone" className="phone-showcase__img" />
+            <img src={`${B}/assets/images/containers/iphone.png`} alt="Faetold on iPhone" className="phone-showcase__img" />
             <div className="phone-showcase__screen">
               {SCREENSHOTS.map((src, i) => (
                 <img
@@ -237,7 +239,7 @@ function Classes() {
             return (
               <div key={c.key} ref={ref} className={`class-card ${vis ? 'class-card--visible' : ''}`}>
                 <div className="class-card__img-wrap">
-                  <img src={`/assets/images/classes/${c.key}.png`} alt={c.name} className="class-card__img" loading="lazy" />
+                  <img src={`${B}/assets/images/classes/${c.key}.png`} alt={c.name} className="class-card__img" loading="lazy" />
                 </div>
                 <h3 className="class-card__name">{c.name}</h3>
                 <p className="class-card__desc">{c.desc}</p>
@@ -258,10 +260,10 @@ function Media() {
         <p className="section__subtitle">Explore hand-crafted campaign seeds, each with a unique story to tell.</p>
         <div className="media__grid">
           {[
-            { src: '/assets/images/locations/castle.png', label: 'Ancient Castles' },
-            { src: '/assets/images/locations/forest.png', label: 'Enchanted Forests' },
-            { src: '/assets/images/locations/peaks.png', label: 'Frozen Peaks' },
-            { src: '/assets/images/locations/town.png', label: 'Bustling Towns' },
+            { src: `${B}/assets/images/locations/castle.png`, label: 'Ancient Castles' },
+            { src: `${B}/assets/images/locations/forest.png`, label: 'Enchanted Forests' },
+            { src: `${B}/assets/images/locations/peaks.png`, label: 'Frozen Peaks' },
+            { src: `${B}/assets/images/locations/town.png`, label: 'Bustling Towns' },
           ].map((m, i) => {
             const [ref, vis] = useInView(0.2)
             return (
@@ -483,7 +485,7 @@ function Footer() {
           <a href="mailto:support@faetold.com?subject=Notify me when Faetold launches" className="btn btn--primary">Get Notified</a>
         </div> */}
         <div className="footer__brand">
-          <img src="/assets/images/logo/logo.png" alt="Faetold" className="footer__logo" />
+          <img src={`${B}/assets/images/logo/logo.png`} alt="Faetold" className="footer__logo" />
           <p className="footer__tagline">An AI-powered D&D adventure.</p>
         </div>
         <div className="footer__links">
