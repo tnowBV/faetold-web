@@ -63,6 +63,17 @@ function useInView(threshold = 0.15) {
   return [ref, visible]
 }
 
+const SCREENSHOTS = [
+  `${B}/assets/images/screenshots/IMG_7770.PNG`,
+  `${B}/assets/images/screenshots/IMG_7799.PNG`,
+  `${B}/assets/images/screenshots/IMG_7801.PNG`,
+  `${B}/assets/images/screenshots/IMG_7803.PNG`,
+  `${B}/assets/images/screenshots/IMG_7804.PNG`,
+  `${B}/assets/images/screenshots/IMG_7805.PNG`,
+  `${B}/assets/images/screenshots/IMG_7824.PNG`,
+  `${B}/assets/images/screenshots/IMG_7AB1E921B88C-1.PNG`,
+]
+
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -134,6 +145,17 @@ function Hero() {
   )
 }
 
+function FeatureCard({ f, i }) {
+  const [ref, vis] = useInView(0.2)
+  return (
+    <div ref={ref} className={`feature-card ${vis ? 'feature-card--visible' : ''}`} style={{ transitionDelay: `${i * 80}ms` }}>
+      <span className="feature-card__icon">{f.icon}</span>
+      <h3 className="feature-card__title">{f.title}</h3>
+      <p className="feature-card__desc">{f.desc}</p>
+    </div>
+  )
+}
+
 function Features() {
   return (
     <section className="section features" id="features">
@@ -141,32 +163,13 @@ function Features() {
         <h2 className="section__title">Forge Your Legend</h2>
         <p className="section__subtitle">Everything you need for a complete D&D experience, powered by AI.</p>
         <div className="features__grid">
-          {FEATURES.map((f, i) => {
-            const [ref, vis] = useInView(0.2)
-            return (
-              <div key={i} ref={ref} className={`feature-card ${vis ? 'feature-card--visible' : ''}`} style={{ transitionDelay: `${i * 80}ms` }}>
-                <span className="feature-card__icon">{f.icon}</span>
-                <h3 className="feature-card__title">{f.title}</h3>
-                <p className="feature-card__desc">{f.desc}</p>
-              </div>
-            )
-          })}
+          {FEATURES.map((f, i) => <FeatureCard key={i} f={f} i={i} />)}
         </div>
       </div>
     </section>
   )
 }
 
-const SCREENSHOTS = [
-  `${B}/assets/images/screenshots/IMG_7770.PNG`,
-  `${B}/assets/images/screenshots/IMG_7799.PNG`,
-  `${B}/assets/images/screenshots/IMG_7801.PNG`,
-  `${B}/assets/images/screenshots/IMG_7803.PNG`,
-  `${B}/assets/images/screenshots/IMG_7804.PNG`,
-  `${B}/assets/images/screenshots/IMG_7805.PNG`,
-  `${B}/assets/images/screenshots/IMG_7824.PNG`,
-  `${B}/assets/images/screenshots/IMG_7AB1E921B88C-1.PNG`,
-]
 
 function PhoneShowcase() {
   const [ref, vis] = useInView(0.2)
@@ -227,6 +230,31 @@ function PhoneShowcase() {
   )
 }
 
+function ClassCard({ c }) {
+  const [ref, vis] = useInView(0.15)
+  return (
+    <div ref={ref} className={`class-card ${vis ? 'class-card--visible' : ''}`}>
+      <div className="class-card__img-wrap">
+        <img src={`${B}/assets/images/classes/${c.key}.png`} alt={c.name} className="class-card__img" loading="lazy" />
+      </div>
+      <h3 className="class-card__name">{c.name}</h3>
+      <p className="class-card__desc">{c.desc}</p>
+    </div>
+  )
+}
+
+function MediaCard({ m, i }) {
+  const [ref, vis] = useInView(0.2)
+  return (
+    <div ref={ref} className={`media-card ${vis ? 'media-card--visible' : ''}`} style={{ transitionDelay: `${i * 100}ms` }}>
+      <img src={m.src} alt={m.label} className="media-card__img" loading="lazy" />
+      <div className="media-card__overlay">
+        <span className="media-card__label">{m.label}</span>
+      </div>
+    </div>
+  )
+}
+
 function Classes() {
   return (
     <section className="section classes" id="classes">
@@ -234,18 +262,7 @@ function Classes() {
         <h2 className="section__title">Choose Your Path</h2>
         <p className="section__subtitle">11 fully realized character classes, each with unique abilities, spells, and progression.</p>
         <div className="classes__carousel">
-          {CLASSES.map((c) => {
-            const [ref, vis] = useInView(0.15)
-            return (
-              <div key={c.key} ref={ref} className={`class-card ${vis ? 'class-card--visible' : ''}`}>
-                <div className="class-card__img-wrap">
-                  <img src={`${B}/assets/images/classes/${c.key}.png`} alt={c.name} className="class-card__img" loading="lazy" />
-                </div>
-                <h3 className="class-card__name">{c.name}</h3>
-                <p className="class-card__desc">{c.desc}</p>
-              </div>
-            )
-          })}
+          {CLASSES.map((c) => <ClassCard key={c.key} c={c} />)}
         </div>
       </div>
     </section>
@@ -264,17 +281,7 @@ function Media() {
             { src: `${B}/assets/images/locations/forest.png`, label: 'Enchanted Forests' },
             { src: `${B}/assets/images/locations/peaks.png`, label: 'Frozen Peaks' },
             { src: `${B}/assets/images/locations/town.png`, label: 'Bustling Towns' },
-          ].map((m, i) => {
-            const [ref, vis] = useInView(0.2)
-            return (
-              <div key={i} ref={ref} className={`media-card ${vis ? 'media-card--visible' : ''}`} style={{ transitionDelay: `${i * 100}ms` }}>
-                <img src={m.src} alt={m.label} className="media-card__img" loading="lazy" />
-                <div className="media-card__overlay">
-                  <span className="media-card__label">{m.label}</span>
-                </div>
-              </div>
-            )
-          })}
+          ].map((m, i) => <MediaCard key={i} m={m} i={i} />)}
         </div>
       </div>
     </section>

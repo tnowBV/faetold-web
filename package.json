@@ -1,6 +1,7 @@
 {
   "name": "faetold-web",
   "private": true,
+  "homepage": "https://tnowBV.github.io/faetold-web",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
