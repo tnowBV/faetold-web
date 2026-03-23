@@ -108,7 +108,7 @@
 .hero__phone-screen {
   position: absolute;
   top: 1.4%; left: 4%; right: 4%; bottom: 1.4%;
-  border-radius: 36px; overflow: hidden; z-index: 1;
+  border-radius: 12px; overflow: hidden; z-index: 1;
   background: #000;
 }
 .hero__phone-ss {
@@ -242,7 +242,7 @@
 .phone-showcase__screen {
   position: absolute;
   top: 1.4%; left: 4%; right: 4%; bottom: 1.4%;
-  border-radius: 36px; overflow: hidden; z-index: 1;
+  border-radius: 12px; overflow: hidden; z-index: 1;
   background: #000;
 }
 .phone-showcase__screenshot {
@@ -495,7 +495,7 @@
   .phone-showcase__img { max-width: 192px; }
   .phone-showcase__text .section__title { text-align: center !important; }
   .footer__links { gap: 40px; }
-  .hero__phone { flex: 0 0 158px; }
+  .hero__phone { display: none; }
 }
 
 @media (max-width: 640px) {
@@ -508,8 +508,8 @@
   .navbar__links--open { display: flex; }
   .navbar__links li a { display: block; padding: 14px 24px; border-bottom: 1px solid rgba(255,255,255,0.04); }
   .navbar__hamburger { display: flex; }
-  .hero__split { flex-direction: column-reverse; gap: 32px; }
-  .hero__phone { flex: 0 0 auto; width: 144px; }
+  .hero__split { flex-direction: column; gap: 32px; }
+  .hero__phone { display: none; }
   .hero__left { text-align: center; }
   .features__grid { grid-template-columns: 1fr; }
   .media__grid { grid-template-columns: 1fr; }
