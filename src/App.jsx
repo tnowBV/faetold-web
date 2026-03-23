@@ -502,7 +502,6 @@ function Footer() {
           </div>
           <div className="footer__col">
             <h4>Resources</h4>
-            <a href="#privacy">Privacy Policy</a>
             <a href="mailto:supportmaster@faetold.com">Contact</a>
           </div>
           <div className="footer__col">
