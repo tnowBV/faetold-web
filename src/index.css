@@ -1,0 +1,66 @@
+@font-face {
+  font-family: 'Bookinsanity';
+  src: url('/assets/fonts/Bookinsanity.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bookinsanity';
+  src: url('/assets/fonts/BookinsanityBold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bookinsanity';
+  src: url('/assets/fonts/BookinsanityItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Bookinsanity', Georgia, serif;
+  background: #000;
+  color: #e8e0d5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: #e8c86d;
+  text-decoration: none;
+}
+a:hover {
+  color: #fff;
+}
+
+::selection {
+  background: rgba(184, 134, 11, 0.4);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0705;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(184, 134, 11, 0.4);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(184, 134, 11, 0.6);
+}
