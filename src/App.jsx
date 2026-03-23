@@ -506,7 +506,7 @@ function Footer() {
           </div>
           <div className="footer__col">
             <h4>Connect</h4>
-            <a href="#" style={{ opacity: 0.5 }}>Discord (Coming Fall 2026)</a>
+            <a href="#" style={{ opacity: 0.5 }}>Discord (Coming Soon)</a>
             <a href="https://reddit.com/r/faetold" target="_blank" rel="noopener noreferrer">Reddit (r/faetold)</a>
             <a href="mailto:supportmaster@faetold.com">Email</a>
           </div>
