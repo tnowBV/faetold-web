@@ -94,7 +94,7 @@
   flex: 1; text-align: center; max-width: 520px;
 }
 .hero__phone {
-  flex: 0 0 187px;
+  flex: 0 0 clamp(140px, 25vh, 220px);
   animation: float 4s ease-in-out infinite;
 }
 .hero__phone-frame {
