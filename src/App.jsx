@@ -65,7 +65,6 @@ function useInView(threshold = 0.15) {
 
 const SCREENSHOTS = [
   `${B}/assets/images/screenshots/IMG_7770.PNG`,
-  `${B}/assets/images/screenshots/IMG_7799.PNG`,
   `${B}/assets/images/screenshots/IMG_7801.PNG`,
   `${B}/assets/images/screenshots/IMG_7803.PNG`,
   `${B}/assets/images/screenshots/IMG_7804.PNG`,
