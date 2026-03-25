@@ -95,7 +95,7 @@ function Navbar() {
           <li><a href="#showcase" onClick={() => setMenuOpen(false)}>Adventure</a></li>
           <li><a href="#sustainability" onClick={() => setMenuOpen(false)}>Sustainability</a></li>
           <li><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a></li>
-          <li><a href="#" className="navbar__cta">Coming Fall 2026</a></li>
+          <li><a href="#signup" className="navbar__cta">Get Notified</a></li>
         </ul>
       </div>
     </nav>
@@ -287,14 +287,77 @@ function Media() {
   )
 }
 
-function Download() {
+function EmailSignup() {
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState(null) // null | 'sending' | 'success' | 'error'
+  const [ref, vis] = useInView(0.2)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const trimmed = email.trim()
+    if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) return
+    setStatus('sending')
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/supportmaster@faetold.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          email: trimmed,
+          _subject: 'Faetold — New Email Signup',
+          message: `New signup: ${trimmed}`,
+        }),
+      })
+      if (res.ok) {
+        setStatus('success')
+        setEmail('')
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
+    setTimeout(() => setStatus(null), 5000)
+  }
+
   return (
-    <section className="section download" id="download">
-      <div className="section__inner download__inner">
-        <h2 className="section__title">Begin Your Quest</h2>
-        <p className="section__subtitle">Faetold is coming soon to iOS. Sign up to be the first to know when it launches.</p>
-        <div className="download__badges">
-          <a href="mailto:support@faetold.com?subject=Notify me when Faetold launches" className="btn btn--primary btn--large">Get Notified</a>
+    <section className="section email-signup" id="signup">
+      <div className="section__inner" ref={ref}>
+        <div className={`email-signup__card ${vis ? 'email-signup__card--visible' : ''}`}>
+          <h2 className="section__title">Begin Your Quest</h2>
+          <p className="section__subtitle" style={{ marginBottom: 24 }}>
+            Faetold is coming Fall 2026 to iOS. Enter your email to be the first to know when it launches.
+          </p>
+          <form className="email-signup__form" onSubmit={handleSubmit}>
+            <div className="email-signup__row">
+              <input
+                type="email"
+                className="email-signup__input"
+                placeholder="your@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={status === 'sending'}
+              />
+              <button
+                type="submit"
+                className="btn btn--primary email-signup__btn"
+                disabled={status === 'sending'}
+              >
+                {status === 'sending' ? 'Signing up...' : status === 'success' ? 'You\'re in!' : 'Get Notified'}
+              </button>
+            </div>
+            {status === 'success' && (
+              <p className="email-signup__status email-signup__status--success">
+                You're on the list! We'll let you know when Faetold launches.
+              </p>
+            )}
+            {status === 'error' && (
+              <p className="email-signup__status email-signup__status--error">
+                Something went wrong. Please try again or email supportmaster@faetold.com directly.
+              </p>
+            )}
+          </form>
+          <p className="email-signup__privacy">We'll never share your email. Unsubscribe anytime.</p>
         </div>
       </div>
     </section>
@@ -526,6 +589,7 @@ export default function App() {
       <Hero />
       <Features />
       <PhoneShowcase />
+      <EmailSignup />
       <Sustainability />
       <Contact />
       <Footer />

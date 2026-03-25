@@ -337,12 +337,55 @@
   text-shadow: 0 2px 6px rgba(0,0,0,0.8);
 }
 
-/* ── Download ────────────────────────────────────────────────────────── */
-.download {
+/* ── Email Signup ────────────────────────────────────────────────────── */
+.email-signup {
   background: radial-gradient(ellipse at center, rgba(184, 134, 11, 0.06) 0%, #000 70%);
   text-align: center;
 }
-.download__badges { margin-top: 8px; }
+.email-signup__card {
+  max-width: 600px; margin: 0 auto;
+  background: rgba(10, 7, 5, 0.72);
+  border: 1px solid rgba(184, 134, 11, 0.2);
+  border-radius: 16px; padding: 48px 36px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.email-signup__card--visible { opacity: 1; transform: translateY(0); }
+.email-signup__card:hover { border-color: rgba(184, 134, 11, 0.4); }
+.email-signup__form { margin-top: 8px; }
+.email-signup__row {
+  display: flex; gap: 12px; align-items: stretch;
+}
+.email-signup__input {
+  flex: 1;
+  font-family: 'Bookinsanity', Georgia, serif;
+  font-size: 15px; color: #fff;
+  background: rgba(8, 6, 4, 0.65);
+  border: 1px solid rgba(184, 134, 11, 0.35);
+  border-radius: 10px; padding: 14px 16px;
+  outline: none; transition: border-color 0.2s;
+}
+.email-signup__input::placeholder { color: rgba(232, 224, 213, 0.3); }
+.email-signup__input:focus { border-color: rgba(184, 134, 11, 0.7); }
+.email-signup__btn {
+  white-space: nowrap; padding: 14px 28px;
+}
+.email-signup__status {
+  font-size: 14px; margin-top: 12px;
+  font-family: 'Bookinsanity', Georgia, serif;
+}
+.email-signup__status--success { color: #66bb6a; }
+.email-signup__status--error { color: #ef5350; }
+.email-signup__privacy {
+  font-size: 12px; color: rgba(232, 224, 213, 0.3);
+  margin-top: 16px;
+  font-family: 'Bookinsanity', Georgia, serif;
+}
+
+@media (max-width: 640px) {
+  .email-signup__row { flex-direction: column; }
+  .email-signup__card { padding: 32px 20px; }
+}
 
 /* ── Sustainability ──────────────────────────────────────────────────── */
 .sustainability {
