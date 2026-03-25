@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import './App.css'
 
 const B = import.meta.env.BASE_URL.replace(/\/$/, '')
+const API = import.meta.env.VITE_API_URL || 'https://api.faetold.com'
 
 const CLASSES = [
   { key: 'barbarian', name: 'Barbarian', desc: 'A fierce warrior fueled by primal rage.' },
@@ -122,7 +123,8 @@ function Hero() {
               and let an intelligent Dungeon Master guide your story.
             </p>
             <div className="hero__actions">
-              <a href="#features" className="btn btn--primary">Learn More</a>
+              <a href="#signup" className="btn btn--primary">Sign Up</a>
+              <a href="#features" className="btn btn--ghost">Learn More</a>
             </div>
           </div>
           <div className="hero__phone">
@@ -298,14 +300,10 @@ function EmailSignup() {
     if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) return
     setStatus('sending')
     try {
-      const res = await fetch('https://formsubmit.co/ajax/supportmaster@faetold.com', {
+      const res = await fetch(`${API}/waitlist`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          email: trimmed,
-          _subject: 'Faetold — New Email Signup',
-          message: `New signup: ${trimmed}`,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: trimmed }),
       })
       if (res.ok) {
         setStatus('success')
@@ -323,10 +321,37 @@ function EmailSignup() {
     <section className="section email-signup" id="signup">
       <div className="section__inner" ref={ref}>
         <div className={`email-signup__card ${vis ? 'email-signup__card--visible' : ''}`}>
-          <h2 className="section__title">Begin Your Quest</h2>
-          <p className="section__subtitle" style={{ marginBottom: 24 }}>
-            Faetold is coming Fall 2026 to iOS. Enter your email to be the first to know when it launches.
+          <p className="email-signup__badge">Founding Adventurer</p>
+          <h2 className="section__title">Join the Founding Adventurers</h2>
+          <p className="section__subtitle" style={{ marginBottom: 28 }}>
+            Faetold is coming Fall 2026 to iOS. Sign up now to claim your spot on the waitlist
+            and unlock exclusive founder rewards.
           </p>
+
+          <div className="email-signup__perks">
+            <div className="email-signup__perk">
+              <span className="email-signup__perk-icon">🏰</span>
+              <div>
+                <strong>Early Access</strong>
+                <p>Be among the first to play before the public launch.</p>
+              </div>
+            </div>
+            <div className="email-signup__perk">
+              <span className="email-signup__perk-icon">🎖️</span>
+              <div>
+                <strong>Founder's Badge + Free Item</strong>
+                <p>Receive an exclusive in-game Founder's Badge and a rare starting item when you begin your adventure.</p>
+              </div>
+            </div>
+            <div className="email-signup__perk">
+              <span className="email-signup__perk-icon">🔥</span>
+              <div>
+                <strong>Kickstarter Early-Bird — 20% Off</strong>
+                <p>Get notified when our Kickstarter drops and lock in 20% off the first tier. Limited spots.</p>
+              </div>
+            </div>
+          </div>
+
           <form className="email-signup__form" onSubmit={handleSubmit}>
             <div className="email-signup__row">
               <input
@@ -343,12 +368,12 @@ function EmailSignup() {
                 className="btn btn--primary email-signup__btn"
                 disabled={status === 'sending'}
               >
-                {status === 'sending' ? 'Signing up...' : status === 'success' ? 'You\'re in!' : 'Get Notified'}
+                {status === 'sending' ? 'Joining...' : status === 'success' ? 'You\'re in!' : 'Claim My Spot'}
               </button>
             </div>
             {status === 'success' && (
               <p className="email-signup__status email-signup__status--success">
-                You're on the list! We'll let you know when Faetold launches.
+                Welcome, Founding Adventurer! We'll send you early access details and your Kickstarter discount when the time comes.
               </p>
             )}
             {status === 'error' && (
@@ -357,7 +382,31 @@ function EmailSignup() {
               </p>
             )}
           </form>
-          <p className="email-signup__privacy">We'll never share your email. Unsubscribe anytime.</p>
+          <p className="email-signup__privacy">No spam, ever. Unsubscribe anytime.</p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ArtistCommitment() {
+  const [ref, vis] = useInView(0.2)
+  return (
+    <section className="section artist-commitment" id="artists">
+      <div className="section__inner" ref={ref}>
+        <div className={`artist-commitment__card ${vis ? 'artist-commitment__card--visible' : ''}`}>
+          <div className="artist-commitment__icon">🎨</div>
+          <div className="artist-commitment__body">
+            <h3 className="artist-commitment__title">Supporting Real Artists</h3>
+            <p className="artist-commitment__text">
+              Faetold uses AI to power your adventures. We know that's complicated. So we've committed
+              <strong> 15% of all proceeds</strong> to commissioning and paying real artists to add new
+              sprites and content to the game.
+            </p>
+            <p className="artist-commitment__text" style={{ marginTop: 12, opacity: 0.7 }}>
+              Great games deserve great art — and great art deserves fair pay.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -587,9 +636,10 @@ export default function App() {
     <>
       <Navbar />
       <Hero />
+      <EmailSignup />
       <Features />
       <PhoneShowcase />
-      <EmailSignup />
+      <ArtistCommitment />
       <Sustainability />
       <Contact />
       <Footer />
