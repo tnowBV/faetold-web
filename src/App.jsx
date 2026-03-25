@@ -3,6 +3,8 @@ import './App.css'
 
 const B = import.meta.env.BASE_URL.replace(/\/$/, '')
 const API = import.meta.env.VITE_API_URL || 'https://faetold-production.up.railway.app'
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || ''
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || ''
 
 const CLASSES = [
   { key: 'barbarian', name: 'Barbarian', desc: 'A fierce warrior fueled by primal rage.' },
@@ -300,23 +302,28 @@ function EmailSignup() {
     if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) return
     setStatus('sending')
     try {
-      console.log('[Waitlist] Posting to:', `${API}/waitlist`)
-      const res = await fetch(`${API}/waitlist`, {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'return=minimal',
+        },
         body: JSON.stringify({ email: trimmed }),
       })
-      console.log('[Waitlist] Response:', res.status, res.statusText)
-      if (res.ok) {
+      if (res.ok || res.status === 201) {
+        setStatus('success')
+        setEmail('')
+      } else if (res.status === 409 || (await res.text()).includes('duplicate')) {
+        // Already signed up
         setStatus('success')
         setEmail('')
       } else {
-        const body = await res.text().catch(() => '')
-        console.error('[Waitlist] Error body:', body)
         setStatus('error')
       }
     } catch (err) {
-      console.error('[Waitlist] Fetch error:', err)
+      console.error('[Waitlist] Error:', err)
       setStatus('error')
     }
     setTimeout(() => setStatus(null), 5000)
