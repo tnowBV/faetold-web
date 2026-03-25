@@ -300,18 +300,23 @@ function EmailSignup() {
     if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) return
     setStatus('sending')
     try {
+      console.log('[Waitlist] Posting to:', `${API}/waitlist`)
       const res = await fetch(`${API}/waitlist`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: trimmed }),
       })
+      console.log('[Waitlist] Response:', res.status, res.statusText)
       if (res.ok) {
         setStatus('success')
         setEmail('')
       } else {
+        const body = await res.text().catch(() => '')
+        console.error('[Waitlist] Error body:', body)
         setStatus('error')
       }
-    } catch {
+    } catch (err) {
+      console.error('[Waitlist] Fetch error:', err)
       setStatus('error')
     }
     setTimeout(() => setStatus(null), 5000)
