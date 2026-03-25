@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import './App.css'
 
 const B = import.meta.env.BASE_URL.replace(/\/$/, '')
-const API = import.meta.env.VITE_API_URL || 'https://api.faetold.com'
+const API = import.meta.env.VITE_API_URL || 'https://faetold-production.up.railway.app'
 
 const CLASSES = [
   { key: 'barbarian', name: 'Barbarian', desc: 'A fierce warrior fueled by primal rage.' },
