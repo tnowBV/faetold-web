@@ -164,7 +164,7 @@ function Features() {
     <section className="section features" id="features">
       <div className="section__inner">
         <h2 className="section__title">Forge Your Legend</h2>
-        <p className="section__subtitle">Everything you need for a complete D&D experience, powered by AI.</p>
+        <p className="section__subtitle">Real D&D 5e mechanics baked into every roll, spell, and encounter. The AI Dungeon Master narrates your story the rules handle the rest.</p>
         <div className="features__grid">
           {FEATURES.map((f, i) => <FeatureCard key={i} f={f} i={i} />)}
         </div>
